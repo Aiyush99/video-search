@@ -1,8 +1,13 @@
-import React from "react";
+import React,{useState} from "react";
+import {Link} from "react-router-dom";
+import VideoPlayerPage from "../Page/VideoPlayerPage";
+
+export default function VideoCard({ thumbnails,url,title,icon,channelName,views,uploaded,duration,id}) {
 
 
-export default function VideoCard({ thumbnails,url,title,icon,channelName,views,uploaded,duration}) {
+ 
   function convert(value)
+
 {
     if(value>=1000000)
     {
@@ -16,6 +21,11 @@ export default function VideoCard({ thumbnails,url,title,icon,channelName,views,
    
 }
 
+const download = () =>{
+ <VideoPlayerPage/>
+}
+ 
+  
   return (
     
     <div>
@@ -33,10 +43,16 @@ export default function VideoCard({ thumbnails,url,title,icon,channelName,views,
           <div style={{display:"flex",flexDirection:"row"}}>
               <p style={{marginLeft:55}}>{convert(views.toFixed(2))} Views</p>
               <p style={{marginLeft:20}}>{uploaded}</p>
+              
+
           </div>
-          <a href={url} className="btn btn-primary">
+          <Link to={{
+            pathname:"/player",
+            state:{id:id,title:title,channelName:channelName,icon:icon,views:views,uploaded:uploaded,url:url}
+          }} className="btn btn-primary">
         Watch Video
-          </a>
+          </Link>
+          <button onClick={download} style={{marginLeft:20}}className="btn btn-primary">Download Video</button>
         </div>
       </div>
     </div>

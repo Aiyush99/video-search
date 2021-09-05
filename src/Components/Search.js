@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import VideoCard from "./VideoCard";
-import "./Search.css";
+import "./css/Search.css";
 import Spinner from "./Spinner";
 
 export default function SearchBar() {
@@ -11,6 +11,7 @@ export default function SearchBar() {
 
   const handleSearch = async () => {
     setLoading(true);
+    setSearch("")
     try {
       const response = await fetch(
         `https://simple-youtube-search.p.rapidapi.com/search?query=${search}&type=video&safesearch=false`,
@@ -30,6 +31,7 @@ export default function SearchBar() {
         setData(result.results);
         setTotalResults(data.totalResults);
       }
+      console.log(result)
       setLoading(false);
       console.log(data);
     } catch (error) {
@@ -47,7 +49,7 @@ export default function SearchBar() {
   return (
     <>
       <div className="search-container">
-        <input
+        <input className="input-text1"
           placeholder="Search Here ..."
           type="text"
           value={search}
@@ -73,6 +75,7 @@ export default function SearchBar() {
                   views={information.views}
                   uploaded={information.uploadedAt}
                   duration={information.duration_formatted}
+                  id={information.id}
                 />
               </div>
             );
